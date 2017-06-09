@@ -130,19 +130,19 @@ function GM:HUDPaint()
   smoothAmmo = Lerp( FrameTime() * 3, smoothAmmo, ammoPercentage )
 
   if ammoCount != -1 then
-    draw.RoundedBox( 0, 275, ScrH() - 65, smoothAmmo * 2.5, 50, Color( 245, 155, 0, 255 ) )
-    draw.OutlinedBox( 275, ScrH() - 65, 250, 50, 3, Color( 0, 0, 0, 255 ) )
+    draw.RoundedBox( 0, 270, ScrH() - 65, smoothAmmo * 2.5, 50, Color( 245, 155, 0, 255 ) )
+    draw.OutlinedBox( 270, ScrH() - 65, 250, 50, 3, Color( 0, 0, 0, 255 ) )
 
-    draw.RoundedBox( 0, 285, ScrH() - 35, 7, 6, Color( 255, 255, 255, 255 ) )
-    draw.RoundedBoxEx( 5, 285, ScrH() - 52, 7, 15, Color( 255, 255, 255, 255 ), true, true, false, false )
+    draw.RoundedBox( 0, 288, ScrH() - 35, 7, 6, Color( 255, 255, 255, 255 ) )
+    draw.RoundedBoxEx( 5, 288, ScrH() - 52, 7, 15, Color( 255, 255, 255, 255 ), true, true, false, false )
 
-    draw.RoundedBox( 0, 295, ScrH() - 35, 7, 6, Color( 255, 255, 255, 255 ) )
-    draw.RoundedBoxEx( 5, 295, ScrH() - 52, 7, 15, Color( 255, 255, 255, 255 ), true, true, false, false )
+    draw.RoundedBox( 0, 298, ScrH() - 35, 7, 6, Color( 255, 255, 255, 255 ) )
+    draw.RoundedBoxEx( 5, 298, ScrH() - 52, 7, 15, Color( 255, 255, 255, 255 ), true, true, false, false )
 
-    draw.RoundedBox( 0, 305, ScrH() - 35, 7, 6, Color( 255, 255, 255, 255 ) )
-    draw.RoundedBoxEx( 5, 305, ScrH() - 52, 7, 15, Color( 255, 255, 255, 255 ), true, true, false, false )
+    draw.RoundedBox( 0, 308, ScrH() - 35, 7, 6, Color( 255, 255, 255, 255 ) )
+    draw.RoundedBoxEx( 5, 308, ScrH() - 52, 7, 15, Color( 255, 255, 255, 255 ), true, true, false, false )
 
-    draw.SimpleText( ammoCount .. " / " .. ammoCountTotal, "HUDText", 319, ScrH() - 60, Color( 255, 255, 255, 255 ) )
+    draw.SimpleText( ammoCount .. " / " .. ammoCountTotal, "HUDText", 322, ScrH() - 60, Color( 255, 255, 255, 255 ) )
   end
 end
 

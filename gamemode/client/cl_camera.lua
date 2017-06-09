@@ -58,7 +58,9 @@ function GM:Think()
   if tr.HitWorld then
     inWorld = false
     worldHitPos = tr.HitPos
+    LocalPlayer():SetFOV( 110, 0 )
   else
     inWorld = true
+    LocalPlayer():SetFOV( 0, 0 )
   end
 end
