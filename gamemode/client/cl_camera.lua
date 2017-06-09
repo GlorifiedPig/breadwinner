@@ -1,4 +1,5 @@
-local drawHalos = false
+local inWorld = false
+local worldHitPos = Vector()
 
 gui.EnableScreenClicker( true )
 
@@ -6,10 +7,18 @@ function GM:CalcView( ply, pos, angles )
   local view = {}
 
   if ply:Alive() then
-    view.origin = Vector(ply:GetPos().x, ply:GetPos().y, ply:GetPos().z + 400)
+    if inWorld then
+      view.origin = Vector(ply:GetPos().x, ply:GetPos().y, ply:GetPos().z + 400)
+    else
+      view.origin = Vector(ply:GetPos().x, ply:GetPos().y, worldHitPos.z - 38 )
+    end
   else
     if ply:GetRagdollEntity() != nil and !ply:Alive() then
-      view.origin = Vector(ply:GetRagdollEntity():GetPos().x, ply:GetRagdollEntity():GetPos().y, ply:GetRagdollEntity():GetPos().z + 400)
+      if inWorld then
+        view.origin = Vector(ply:GetRagdollEntity():GetPos().x, ply:GetRagdollEntity():GetPos().y, ply:GetRagdollEntity():GetPos().z + 400)
+      else
+        view.origin = Vector(ply:GetRagdollEntity():GetPos().x, ply:GetRagdollEntity():GetPos().y, worldHitPos.z - 38 )
+      end
     end
   end
 	view.angles = Angle(90, 0, 0)
@@ -42,20 +51,14 @@ end
 
 function GM:Think()
   local tr = util.TraceLine( {
-    start = EyePos(),
-    endpos = LocalPlayer():EyePos()
+    start = EyePos() + Vector( 0, 0, 100 ),
+    endpos = LocalPlayer():EyePos() + Vector( 0, 0, 100 )
   } )
 
   if tr.HitWorld then
-    drawHalos = true
+    inWorld = false
+    worldHitPos = tr.HitPos
   else
-    drawHalos = false
-  end
-end
-
-function GM:PreDrawHalos()
-  if drawHalos == true then
-	  halo.Add( ents.FindByClass( "npc_*" ), Color( 225, 0, 0 ), 5, 5, 2, true, true )
-    halo.Add( player.GetAll(), Color( 0, 225, 0 ), 5, 5, 2, true, true )
+    inWorld = true
   end
 end
