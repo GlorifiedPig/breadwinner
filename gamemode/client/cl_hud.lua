@@ -33,6 +33,10 @@ end
 local smoothHealth = 0
 local smoothDeath = 0
 local smoothDeathText = 0
+local smoothAmmo = 0
+local ammoCount
+local ammoCountTotal
+local ammoPercentage
 function GM:HUDPaint()
   local ply = LocalPlayer()
 
@@ -52,6 +56,9 @@ function GM:HUDPaint()
     return
   end
 
+  smoothDeath = 0
+  smoothDeathText = 0
+
   local health = ply:Health()
   smoothHealth = Lerp( FrameTime() * 3, smoothHealth, health )
 
@@ -62,6 +69,21 @@ function GM:HUDPaint()
   draw.RoundedBox( 0, 28, ScrH() - 44, 33, 8, Color( 255, 255, 255, 255 ) )
 
   draw.SimpleText( math.Round( smoothHealth, 0 ), "HUDText", 69, ScrH() - 60, Color( 255, 255, 255, 255 ) )
+
+  if ply:GetActiveWeapon():IsValid() then
+    ammoCount = ply:GetActiveWeapon():Clip1()
+    ammoCountTotal = ply:GetAmmoCount( ply:GetActiveWeapon():GetPrimaryAmmoType() )
+    ammoPercentage = ( ammoCount / ply:GetActiveWeapon():GetMaxClip1() ) * 100
+  end
+
+  smoothAmmo = Lerp( FrameTime() * 3, smoothAmmo, ammoPercentage )
+
+  if ammoCount != -1 then
+    draw.RoundedBox( 0, 275, ScrH() - 65, smoothAmmo * 2.5, 50, Color( 245, 155, 0, 255 ) )
+    draw.OutlinedBox( 275, ScrH() - 65, 250, 50, 3, Color( 0, 0, 0, 255 ) )
+
+    draw.SimpleText( ammoCount .. " / " .. ammoCountTotal, "HUDText", 290, ScrH() - 60, Color( 255, 255, 255, 255 ) )
+  end
 end
 
 function ShouldHUDDraw( name )
