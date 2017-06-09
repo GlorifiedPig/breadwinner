@@ -70,6 +70,9 @@ function GM:HUDPaint()
       if v:GetRagdollEntity() != nil then
         pPos = v:GetRagdollEntity():GetPos() + Vector(0, 0, 64)
         pScreenpos = pPos:ToScreen()
+      else
+        pPos = v:GetPos() + Vector(0, 0, 64)
+        pScreenpos = pPos:ToScreen()
       end
       surface.SetTextColor( 255, 0, 0, 255 )
       surface.SetFont( "HUDTextName" )
