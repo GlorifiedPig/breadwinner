@@ -23,6 +23,14 @@ surface.CreateFont("HUDText", {
   antialias = true
 })
 
+surface.CreateFont("HUDTextName", {
+  font = "Futura (Light)",
+  size = 22,
+  weight = 500,
+  antialias = true,
+  outline = true
+})
+
 function draw.OutlinedBox( x, y, w, h, thickness, clr )
 	surface.SetDrawColor( clr )
 	for i=0, thickness - 1 do
@@ -39,6 +47,41 @@ local ammoCountTotal
 local ammoPercentage
 function GM:HUDPaint()
   local ply = LocalPlayer()
+
+  for k, v in pairs( player.GetAll() ) do
+    if v == ply then continue end
+
+    local pHP = v:Health()
+    local pNick = v:Nick()
+    local pPos
+    local pScreenpos
+
+    if v:Alive() then
+      pPos = v:GetPos() + Vector(0, 0, 64)
+      pScreenpos = pPos:ToScreen()
+      draw.RoundedBox( 0, pScreenpos.x, pScreenpos.y - 5, pHP, 25, Color( 205, 0, 0, 200 ) )
+      draw.OutlinedBox( pScreenpos.x, pScreenpos.y - 5, 100, 25, 3, Color( 0, 0, 0, 255 ) )
+
+      surface.SetTextColor( 255, 255, 255, 255 )
+      surface.SetFont( "HUDTextName" )
+      surface.SetTextPos( pScreenpos.x + 5, pScreenpos.y - 3)
+      surface.DrawText( pHP )
+    else
+      if v:GetRagdollEntity() != nil then
+        pPos = v:GetRagdollEntity():GetPos() + Vector(0, 0, 64)
+        pScreenpos = pPos:ToScreen()
+      end
+      surface.SetTextColor( 255, 0, 0, 255 )
+      surface.SetFont( "HUDTextName" )
+      surface.SetTextPos( pScreenpos.x, pScreenpos.y - 5)
+      surface.DrawText( "DEAD" )
+    end
+
+    surface.SetTextColor( 255, 255, 255, 255 )
+    surface.SetFont( "HUDTextName" )
+    surface.SetTextPos( pScreenpos.x, pScreenpos.y - 27 )
+    surface.DrawText( pNick )
+  end
 
   if !ply:Alive() then
     surface.SetFont("DeathFont")
@@ -60,7 +103,12 @@ function GM:HUDPaint()
   smoothDeathText = 0
 
   local health = ply:Health()
-  smoothHealth = Lerp( FrameTime() * 3, smoothHealth, health )
+
+  if smoothHealth <= 100 then
+    smoothHealth = Lerp( FrameTime() * 3, smoothHealth, health )
+  else
+    smoothHealth = 100
+  end
 
   draw.RoundedBox( 0, 15, ScrH() - 65, smoothHealth * 2.5, 50, Color( 205, 0, 0, 255 ) )
   draw.OutlinedBox( 15, ScrH() - 65, 250, 50, 3, Color( 0, 0, 0, 255 ) )
