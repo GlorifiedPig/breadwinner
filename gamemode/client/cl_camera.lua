@@ -1,3 +1,5 @@
+local drawHalos = false
+
 gui.EnableScreenClicker( true )
 
 function GM:CalcView( ply, pos, angles )
@@ -38,9 +40,6 @@ function GM:GUIMouseReleased( MouseCode )
   end
 end
 
-
---[[To-do: Make it so that the world goes transparent when a player is under a roof
-
 function GM:Think()
   local tr = util.TraceLine( {
     start = EyePos(),
@@ -48,6 +47,15 @@ function GM:Think()
   } )
 
   if tr.HitWorld then
-
+    drawHalos = true
+  else
+    drawHalos = false
   end
-end]]--
+end
+
+function GM:PreDrawHalos()
+  if drawHalos == true then
+	  halo.Add( ents.FindByClass( "npc_*" ), Color( 225, 0, 0 ), 5, 5, 2, true, true )
+    halo.Add( player.GetAll(), Color( 0, 225, 0 ), 5, 5, 2, true, true )
+  end
+end
