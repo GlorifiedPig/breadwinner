@@ -8,6 +8,13 @@ local ShouldNotDraw = {
   CHudDeathNotice = true
 }
 
+surface.CreateFont("HUDText", {
+  font = "Futura",
+  size = 40,
+  weight = 450,
+  antialias = true
+})
+
 function draw.OutlinedBox( x, y, w, h, thickness, clr )
 	surface.SetDrawColor( clr )
 	for i=0, thickness - 1 do
@@ -28,7 +35,7 @@ function GM:HUDPaint()
   draw.RoundedBox( 0, 40, ScrH() - 58, 10, 35, Color( 255, 255, 255, 255 ) )
   draw.RoundedBox( 0, 28, ScrH() - 45, 35, 10, Color( 255, 255, 255, 255 ) )
 
-  draw.SimpleText( math.Round( smoothHealth, 0 ), "Trebuchet24", 73, ScrH() - 61, Color( 255, 255, 255, 255 ) )
+  draw.SimpleText( math.Round( smoothHealth, 0 ), "HUDText", 73, ScrH() - 61, Color( 255, 255, 255, 255 ) )
 end
 
 function ShouldHUDDraw( name )
