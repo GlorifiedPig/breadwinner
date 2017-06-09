@@ -1,0 +1,6 @@
+"breadwinner"
+{
+	"base"	"base"
+	"title"	"Breadwinner"
+	"menusystem"	"1"
+}
