@@ -3,7 +3,13 @@ gui.EnableScreenClicker( true )
 function GM:CalcView( ply, pos, angles )
   local view = {}
 
-  view.origin = Vector(ply:GetPos().x, ply:GetPos().y, ply:GetPos().z + 400)
+  if ply:Alive() then
+    view.origin = Vector(ply:GetPos().x, ply:GetPos().y, ply:GetPos().z + 400)
+  else
+    if ply:GetRagdollEntity() != nil and !ply:Alive() then
+      view.origin = Vector(ply:GetRagdollEntity():GetPos().x, ply:GetRagdollEntity():GetPos().y, ply:GetRagdollEntity():GetPos().z + 400)
+    end
+  end
 	view.angles = Angle(90, 0, 0)
 	view.drawviewer = true
 
