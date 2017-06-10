@@ -3,7 +3,7 @@ local worldHitPos = Vector()
 
 gui.EnableScreenClicker( true )
 
-function GM:CalcView( ply, pos, angles, fov )
+function GM:CalcView( ply, pos, angles, fov, znear, zfar )
   local view = {}
 
   if ply:Alive() then
@@ -11,7 +11,7 @@ function GM:CalcView( ply, pos, angles, fov )
       view.origin = Vector(ply:GetPos().x, ply:GetPos().y, ply:GetPos().z + 400)
     else
       view.origin = Vector(ply:GetPos().x, ply:GetPos().y, worldHitPos.z - 38 )
-      view.fov = 115
+      view.fov = 100
     end
   else
     if ply:GetRagdollEntity() != nil and !ply:Alive() then
@@ -19,7 +19,7 @@ function GM:CalcView( ply, pos, angles, fov )
         view.origin = Vector(ply:GetRagdollEntity():GetPos().x, ply:GetRagdollEntity():GetPos().y, ply:GetRagdollEntity():GetPos().z + 400)
       else
         view.origin = Vector(ply:GetRagdollEntity():GetPos().x, ply:GetRagdollEntity():GetPos().y, worldHitPos.z - 38 )
-        view.fov = 115
+        view.fov = 100
       end
     end
   end
@@ -30,13 +30,13 @@ function GM:CalcView( ply, pos, angles, fov )
 end
 
 function GM:CreateMove( command )
-    local mouseX, mouseY = gui.MousePos()
-    local scrW, scrH = ScrW() / 2, ScrH() / 2
-    local pos = LocalPlayer():GetShootPos():ToScreen()
-    local ang = command:GetViewAngles()
+  local mouseX, mouseY = gui.MousePos()
+  local scrW, scrH = ScrW() / 2, ScrH() / 2
+  local pos = LocalPlayer():GetShootPos():ToScreen()
+  local ang = command:GetViewAngles()
 
-    ang.y = math.deg( math.atan2( scrW - mouseX, scrH - mouseY ) )
-    command:SetViewAngles(ang)
+  ang.y = math.deg( math.atan2( scrW - mouseX, scrH - mouseY ) )
+  command:SetViewAngles(ang)
 end
 
 function GM:GUIMousePressed( MouseCode )
