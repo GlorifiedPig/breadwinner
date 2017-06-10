@@ -3,7 +3,7 @@ local worldHitPos = Vector()
 
 gui.EnableScreenClicker( true )
 
-function GM:CalcView( ply, pos, angles )
+function GM:CalcView( ply, pos, angles, fov )
   local view = {}
 
   if ply:Alive() then
@@ -11,6 +11,7 @@ function GM:CalcView( ply, pos, angles )
       view.origin = Vector(ply:GetPos().x, ply:GetPos().y, ply:GetPos().z + 400)
     else
       view.origin = Vector(ply:GetPos().x, ply:GetPos().y, worldHitPos.z - 38 )
+      view.fov = 115
     end
   else
     if ply:GetRagdollEntity() != nil and !ply:Alive() then
@@ -18,6 +19,7 @@ function GM:CalcView( ply, pos, angles )
         view.origin = Vector(ply:GetRagdollEntity():GetPos().x, ply:GetRagdollEntity():GetPos().y, ply:GetRagdollEntity():GetPos().z + 400)
       else
         view.origin = Vector(ply:GetRagdollEntity():GetPos().x, ply:GetRagdollEntity():GetPos().y, worldHitPos.z - 38 )
+        view.fov = 115
       end
     end
   end
@@ -58,9 +60,7 @@ function GM:Think()
   if tr.HitWorld then
     inWorld = false
     worldHitPos = tr.HitPos
-    LocalPlayer():SetFOV( 110, 0 )
   else
     inWorld = true
-    LocalPlayer():SetFOV( 0, 0 )
   end
 end
