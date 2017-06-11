@@ -1,6 +1,7 @@
 AddCSLuaFile("cl_init.lua")
-AddCSLuaFile("client/cl_camera.lua")
-AddCSLuaFile("client/cl_hud.lua")
+AddCSLuaFile("camera/cl_camera.lua")
+AddCSLuaFile("hud/cl_hud.lua")
+AddCSLuaFile("roundsystem/cl_waves.lua")
 
 GM.Name = "Breadwinner"
 GM.Author = "GlorifiedPig"

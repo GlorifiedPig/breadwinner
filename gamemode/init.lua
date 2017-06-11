@@ -1,8 +1,9 @@
 AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
-AddCSLuaFile("client/cl_camera.lua")
-AddCSLuaFile("client/cl_hud.lua")
-include("server/sv_camera.lua")
+AddCSLuaFile("camera/cl_camera.lua")
+AddCSLuaFile("hud/cl_hud.lua")
+include("camera/sv_camera.lua")
+include("roundsystem/sv_waves.lua")
 
 function GM:PlayerSpawn(ply)
   local Weapons = {"weapon_pistol", "weapon_crowbar"}
