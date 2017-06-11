@@ -23,6 +23,14 @@ surface.CreateFont("HUDText", {
   antialias = true
 })
 
+surface.CreateFont("HUDTextOutline", {
+    font = "Futura (Light)",
+    size = 40,
+    weight = 500,
+    antialias = true,
+    outline = true
+})
+
 surface.CreateFont("HUDTextName", {
   font = "Futura (Light)",
   size = 22,
@@ -144,6 +152,11 @@ function GM:HUDPaint()
 
     draw.SimpleText( ammoCount .. " / " .. ammoCountTotal, "HUDText", 322, ScrH() - 60, Color( 255, 255, 255, 255 ) )
   end
+
+  surface.SetFont( "HUDTextOutline" )
+  local waveSizeW, waveSizeH = surface.GetTextSize( "Wave " .. wave )
+
+  draw.SimpleText( "Wave " .. wave, "HUDTextOutline", ScrW() / 2 - waveSizeW / 2, 10, Color( 255, 255, 255, 255 ) )
 end
 
 function ShouldHUDDraw( name )
