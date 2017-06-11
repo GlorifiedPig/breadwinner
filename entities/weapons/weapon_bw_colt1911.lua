@@ -36,7 +36,8 @@ function SWEP:PrimaryAttack()
         Shot.Src = ply:GetShootPos()
         Shot.Dir = ply:GetAimVector()
         Shot.Spread = Vector( self.Primary.Spread, self.Primary.Spread, 0 )
-        Shot.Tracer = TRACER_LINE_AND_WHIZ
+        Shot.Tracer = 1
+        Shot.TracerName = "AirboatGunTracer"
         Shot.Damage = math.random( 10, 20 )
         Shot.AmmoType = self.Primary.Ammo
 
