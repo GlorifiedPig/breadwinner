@@ -1,18 +1,19 @@
-function GM:SetupMove( ply, mv, cmd )
+function GM:Move( ply, mv )
   local velocity = mv:GetVelocity()
-  local p = 0
+  local x = 0
   local y = 0
+	local z = mv:GetVelocity().z
 
 	if mv:KeyDown( IN_JUMP ) then
 		mv:SetButtons( bit.band(mv:GetButtons(), bit.bnot( IN_JUMP ) ) )
 	end
 
 	if mv:KeyDown( IN_FORWARD ) then
-		p = 255
+		x = 255
 	end
 
   if mv:KeyDown( IN_BACK ) then
-		p = -255
+		x = -255
 	end
 
   if mv:KeyDown( IN_MOVELEFT ) then
@@ -23,6 +24,6 @@ function GM:SetupMove( ply, mv, cmd )
 		y = -255
 	end
 
-  velocity = Vector( p, y, 0 )
+  velocity = Vector( x, y, z )
   mv:SetVelocity( velocity )
 end
