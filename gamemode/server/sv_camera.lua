@@ -9,19 +9,15 @@ function GM:Move( ply, mv )
 	end
 
 	if mv:KeyDown( IN_FORWARD ) then
-		x = 255
-	end
-
-  if mv:KeyDown( IN_BACK ) then
-		x = -255
+		x = 200
+	elseif mv:KeyDown( IN_BACK ) then
+		x = -200
 	end
 
   if mv:KeyDown( IN_MOVELEFT ) then
-		y = 255
-	end
-
-	if mv:KeyDown( IN_MOVERIGHT ) then
-		y = -255
+		y = 200
+	elseif mv:KeyDown( IN_MOVERIGHT ) then
+		y = -200
 	end
 
   velocity = Vector( x, y, z )
